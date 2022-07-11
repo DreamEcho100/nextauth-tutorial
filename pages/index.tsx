@@ -1,13 +1,18 @@
 import type { NextPage } from 'next';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession, getSession } from 'next-auth/react';
 const Home: NextPage = () => {
 	const { data: session, status } = useSession();
 
-	console.log('session', session);
+	console.group('session');
+	console.dir(session);
+	console.dir(status);
+	console.log(getSession());
+	console.groupEnd();
 
 	if (status === 'loading') {
 		return <h1>Loading...</h1>;
 	}
+
 	if (session) {
 		return (
 			<>
@@ -18,6 +23,7 @@ const Home: NextPage = () => {
 			</>
 		);
 	}
+
 	return (
 		<>
 			Not signed in <br />
